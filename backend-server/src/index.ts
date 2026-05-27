@@ -1,7 +1,7 @@
 import express from "express"
 import { configRoutes } from "./routes.ts"
+import { port } from "./lib/env/index.ts";
 const app = express()
-const port = 3000
 
 function main() {
 

@@ -1,0 +1,4 @@
+py -m venv venv
+venv\Scripts\Activate
+pip isntall -r requirements.txt
+py -m serve
