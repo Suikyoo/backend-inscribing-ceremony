@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "npx tsx --env-file=.env --watch  src/index.ts",
+    "start": "npx tsx --env-file=../.env --watch  src/index.ts",
     "seed": "node src/seed/seed.ts",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",

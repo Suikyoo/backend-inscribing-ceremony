@@ -18,6 +18,7 @@ const wss = new WebSocketServer({ server, path: '/ws' });
 
 wss.on('connection', (ws) => {
   ws.on('message', msg => {
+    console.log("I got a teeehhhhhxxxtttttt");
     for (const client of wss.clients) {
       client.send(msg);
     }
