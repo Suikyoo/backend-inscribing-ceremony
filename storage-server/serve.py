@@ -6,7 +6,7 @@ root = "public"
 host = os.getenv("STORAGE_HOST")
 port = os.getenv("STORAGE_PORT")
 if not (host and port):
-    raise RuntimeError
+    raise EnvironmentError
 
 handler =  functools.partial(serve.SimpleHTTPRequestHandler, directory=root)
 server = serve.HTTPServer((host, int(port)), handler)

@@ -12,6 +12,9 @@ let url = (process.env.STORAGE_HOST && process.env.STORAGE_PORT) && `${process.e
 if (!url?.startsWith("http")) {
   url = "http://" + url;
 }
+if (!url) {
+  url = process.env.STORAGE_URL;
+}
 export const storageUrl = url;
 
 if (!port) throw new Error("Port not set. ");

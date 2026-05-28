@@ -8,9 +8,17 @@
     "start:database": "cd database-server && docker compose up",
     "start:socket": "cd socket-server && node index.js",
     "start:storage": "cd storage-server && source venv/bin/activate && python -m serve",
+
+    "setup:backend": "cd backend-server && npm install",
+    "setup:database": "cd database-server",
+    "setup:socket": "cd socket-server && npm install",
     "setup:storage": "cd storage-server && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt",
+
+    "seed:backend": "bash -lc \"sleep 5 && cd backend-server && npm run db:generate && npm run db:migrate && npm run seed\"",
+
     "start": "concurrently --kill-others \"npm run start:backend\" \"npm run start:database\" \"npm run start:socket\" \"npm run start:storage\"",
-    "setup": "concurrently --kill-others \"npm run setup:storage\""
+    "setup": "npm run setup:backend && npm run setup:database && npm run setup:socket && npm run setup:storage",
+    "seed": "concurrently --kill-others \"npm run start:database\" \"npm run seed:backend\""
   },
   "repository": {
     "type": "git",
