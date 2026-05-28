@@ -1,0 +1,30 @@
+{
+  "name": "backend-inscribing-ceremony",
+  "version": "1.0.0",
+  "description": "a collection of services for the backend of inscribing-ceremony",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:backend": "cd backend-server && npm install && npm run start",
+    "start:database": "cd database-server && docker compose up",
+    "start:socket": "cd socket-server && node index.js",
+    "start:storage": "cd storage-server && source venv/bin/activate && python -m serve",
+    "setup:storage": "cd storage-server && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt",
+    "start": "concurrently --kill-others \"npm run start:backend\" \"npm run start:database\" \"npm run start:socket\" \"npm run start:storage\"",
+    "setup": "concurrently --kill-others \"npm run setup:storage\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Suikyoo/backend-inscribing-ceremony.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Suikyoo/backend-inscribing-ceremony/issues"
+  },
+  "homepage": "https://github.com/Suikyoo/backend-inscribing-ceremony#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
