@@ -6,7 +6,6 @@ const app = express()
 function main() {
 
   configRoutes(app);
-  app.use
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })

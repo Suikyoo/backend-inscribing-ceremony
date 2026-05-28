@@ -5,6 +5,7 @@ import { addStudentById } from "./lib/db/setter.ts";
 import { authenticate } from "./lib/auth/index.ts";
 import cookieParser from "cookie-parser";
 import { authorize } from "./lib/auth/middleware.ts";
+import multer from "multer";
 
 export function configRoutes(app: Express) {
 
@@ -22,10 +23,10 @@ export function configRoutes(app: Express) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
 
-  app.post("/auth", async (req, res) => {
+  const upload = multer()
+  app.post("/auth", upload.none(), async (req, res) => {
 
-    const username: string = req.body.username;
-    const password: string = req.body.password;
+    const { username, password }: {username: string, password: string} = req.body;
 
     if (!username || !password) {
       return res.status(400).send("username or password not filled. ");
@@ -37,14 +38,16 @@ export function configRoutes(app: Express) {
         httpOnly: true,
       })
     } catch (e) {
-      return res.status(400).send("authentication failed. ");
+      res.status(400).send("You are not the Master!");
+      return;
     }
 
-    return res.sendStatus(200);
+    res.status(200).send("You are good to go!");
+
   });
 
   app.use(authorize);
-  //posters
+
   app.post("/students/:id", async (req, res) => {
     const id = Number(req.params.id);
     try {
@@ -58,5 +61,10 @@ export function configRoutes(app: Express) {
     }
 
   });
+  //this is for checking if frontend user is master
+  app.get("/master/ping", async (_, res) => {
+    res.sendStatus(200);
+  })
+
 
 }
