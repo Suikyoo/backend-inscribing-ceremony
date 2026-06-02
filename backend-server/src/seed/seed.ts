@@ -17,7 +17,10 @@ export async function seed() {
     const student: InferSelectModel<typeof dataTable> = {
       name,
       id: Number(id),
-      img: join("images", id.trim() + ".jpeg"),
+      imgs: [
+        join(id.trim() + "_0" + ".jpeg"),
+        join(id.trim() + "_1" + ".jpeg"),
+      ],
     }
     students.push(student);
   }

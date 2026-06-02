@@ -15,15 +15,11 @@ for k in data.keys():
 
         if p.exists():
             files = [i for i in p.iterdir() if i.suffix == ".JPG"]
-            if len(files):
-                src = files[0]
-                dest = root / (data[k] + "jpeg")
-                dest = os.path.join(root, data[k] + ".jpeg")
+            for j in range(len(files)):
+                src = files[j]
+                dest = root / (data[k] + "_" + str(j) + ".jpeg")
                 shutil.copy(src, dest)
                 #print(f"copy from {src} to {dest}")
-            else:
-                raise ValueError("no images in path")
-            
 
         else:
             raise ValueError("path does not exist")

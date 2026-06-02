@@ -3,17 +3,7 @@
   "version": "1.0.0",
   "description": "a collection of services for the backend of inscribing-ceremony",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:backend": "cd backend-server && npm install && npm run start",
-    "start:database": "cd database-server && docker compose up",
-    "start:socket": "cd socket-server && node index.js",
-    "setup:backend": "cd backend-server && npm install",
-    "setup:database": "cd database-server",
-    "setup:socket": "cd socket-server && npm install",
-    "seed:backend": "bash -lc \"sleep 5 && cd backend-server && npm run db:generate && npm run db:migrate && npm run seed\"",
-    "start": "concurrently --kill-others \"npm run start:backend\" \"npm run start:database\" \"npm run start:socket\"",
-    "setup": "npm run setup:backend && npm run setup:database && npm run setup:socket",
-    "seed": "concurrently --kill-others \"npm run start:database\" \"npm run seed:backend\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
