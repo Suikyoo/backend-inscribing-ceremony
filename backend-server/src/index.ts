@@ -1,12 +1,26 @@
 import express from "express"
 import { configRoutes } from "./routes.ts"
 import { port } from "./lib/env/index.ts";
+import { WebSocketServer } from 'ws';
+import http from "http";
 const app = express()
 
 function main() {
 
   configRoutes(app);
-  app.listen(port, () => {
+  const server = http.createServer(app);
+  const wss = new WebSocketServer({server, path: "/ws"})
+
+  wss.on('connection', (ws) => {
+    ws.on('message', msg => {
+      console.log("I got a teeehhhhhxxxtttttt");
+      for (const client of wss.clients) {
+        client.send(msg);
+      }
+    })
+  });
+
+  server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
 }

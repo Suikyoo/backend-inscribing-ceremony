@@ -1,6 +1,6 @@
 import os, subprocess
 
-root = "public"
+root = "../public"
 for i in os.listdir(root):
     base, ext = os.path.splitext(i)
     if ext.lower() == ".jpeg":

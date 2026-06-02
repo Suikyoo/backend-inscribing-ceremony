@@ -1,7 +1,7 @@
 
 import os
 
-root = "public"
+root = "../public"
 
 def get_numbers(s):
     res = ""

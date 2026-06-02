@@ -1,4 +1,5 @@
-import { type Express } from "express"
+import { type Express, static as staticServe } from "express"
+import cors from "cors"
 import { getAllStudents, getStudentsById,  } from "./lib/db/getter.ts"
 import bodyParser from "body-parser"
 import { addStudentById } from "./lib/db/setter.ts";
@@ -6,11 +7,19 @@ import { authenticate } from "./lib/auth/index.ts";
 import cookieParser from "cookie-parser";
 import { authorize } from "./lib/auth/middleware.ts";
 import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 export function configRoutes(app: Express) {
 
-  //getters
+  app.use(cors());
 
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename)
+  app.use("/images", staticServe(path.join(__dirname, "../public")))
+
+  //getters
 
   app.get("/students", async (_, res) => {
     return res.json(await getAllStudents());
