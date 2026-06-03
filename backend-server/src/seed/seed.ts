@@ -3,9 +3,22 @@ import { readFile } from "fs/promises";
 import { dataTable, studentsTable, tagsTable } from "../lib/db/schema.ts";
 import { db } from "../lib/db/index.ts";
 import { join } from "path";
+import XLSX from "xlsx";
 
+interface Tag {
+  id: string;
+  title: string;
+  metaData1: string;
+  metaData2: string;
+}
 export async function seed() {
   const file = await readFile("src/seed/data.txt", "utf-8");
+
+
+  const workbook = XLSX.readFile('src/seed/data.xlsx', { cellDates: true });
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+  const rows = XLSX.utils.sheet_to_json(sheet, { defval: null }) as Tag[]; // array of objects
 
   const students: InferSelectModel<typeof dataTable>[] = [];
   const tags: InferInsertModel<typeof tagsTable>[] = [];
@@ -25,16 +38,21 @@ export async function seed() {
       ],
     }
 
-    const tag: InferInsertModel<typeof tagsTable> = {
-      userId: Number(id),
-      title: "Data",
-      metaData1: "metadata 1",
-      metaData2: "metadata 2",
+    const userTags = rows.filter(v => Number(v.id) === Number(id));
+    for (const t of userTags) {
+      const tag: InferInsertModel<typeof tagsTable> = {
+        userId: Number(id),
+        title: t.title,
+        metaData1: t.metaData1,
+        metaData2: t.metaData2,
+      }
+      tags.push(tag);
     }
+    
     students.push(student);
-    tags.push(tag);
   }
 
+  console.log(tags);
   await db.delete(tagsTable);
   console.log("tags table cleared");
   await db.insert(tagsTable).values(tags);

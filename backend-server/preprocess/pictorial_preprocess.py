@@ -11,7 +11,7 @@ data = {i[0] : i[1] for i in data}
 
 for k in data.keys():
     try:
-        p = pictorial_dir / k.upper() / "SELECTED"
+        p = pictorial_dir / k.upper() / "SELECTED" / "EDITED"
 
         if p.exists():
             files = [i for i in p.iterdir() if i.suffix == ".JPG"]
