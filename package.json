@@ -14,7 +14,8 @@
     "clear": "concurrently --no-kill \"npm run start:database\" \"npm run clear:backend\"",
     "setup": "concurrently --no-kill \"npm run start:database\" \"npm run setup:backend\"",
     "seed": "concurrently --no-kill \"npm run start:database\" \"npm run seed:backend\"",
-    "start": "concurrently --no-kill \"npm run start:backend\" \"npm run start:database\""
+    "start": "concurrently --no-kill \"npm run start:backend\" \"npm run start:database\"",
+    "super-start": "npm run setup && npm run seed && npm run start"
   },
   "repository": {
     "type": "git",
