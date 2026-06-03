@@ -11,6 +11,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
+const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export function configRoutes(app: Express) {
 
   app.use(cors());
@@ -22,14 +24,17 @@ export function configRoutes(app: Express) {
   //getters
 
   app.get("/students", async (_, res) => {
+    await sleep(1000);
     return res.json(await getAllStudents());
   });
   app.get("/students/:id", async (req, res) => {
     const id: number = Number(req.params.id);
+    await sleep(1000);
     return res.json(await getStudentsById(id));
   });
 
   app.get("/students/metadata/:id", async (req, res) => {
+    await sleep(1000);
     const id: number = Number(req.params.id);
     return res.json(await getTagByStudentId(id));
   });
