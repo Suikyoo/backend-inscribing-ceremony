@@ -33,7 +33,7 @@ export function configRoutes(app: Express) {
     return res.json(await getStudentsById(id));
   });
 
-  app.get("/students/metadata/:id", async (req, res) => {
+  app.get("/tags/:id", async (req, res) => {
     await sleep(1000);
     const id: number = Number(req.params.id);
     return res.json(await getTagByStudentId(id));
