@@ -3,7 +3,18 @@
   "version": "1.0.0",
   "description": "a collection of services for the backend of inscribing-ceremony",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:backend": "cd backend-server && npm run start",
+    "start:database": "cd database-server && docker compose up",
+    "setup:backend": "cd backend-server && npm install && npm run db:generate && npm run db:migrate",
+
+    "seed:backend" : "sleep 2 && cd backend-server && npm run seed",
+    "clear:backend" : "sleep 2 && cd backend-server && npm run clear",
+
+    "clear": "concurrently --no-kill \"npm run start:database\" \"npm run clear:backend\"",
+    "setup": "concurrently --no-kill \"npm run start:database\" \"npm run setup:backend\"",
+    "seed": "concurrently --no-kill \"npm run start:database\" \"npm run seed:backend\"",
+    "start": "concurrently --no-kill \"npm run start:backend\" \"npm run start:database\""
   },
   "repository": {
     "type": "git",

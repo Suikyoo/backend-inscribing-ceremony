@@ -1,6 +1,6 @@
 import { type Express, static as staticServe } from "express"
 import cors from "cors"
-import { getAllStudents, getStudentsById,  } from "./lib/db/getter.ts"
+import { getAllStudents, getStudentsById, getTagByStudentId,  } from "./lib/db/getter.ts"
 import bodyParser from "body-parser"
 import { addStudentById } from "./lib/db/setter.ts";
 import { authenticate } from "./lib/auth/index.ts";
@@ -27,6 +27,11 @@ export function configRoutes(app: Express) {
   app.get("/students/:id", async (req, res) => {
     const id: number = Number(req.params.id);
     return res.json(await getStudentsById(id));
+  });
+
+  app.get("/students/metadata/:id", async (req, res) => {
+    const id: number = Number(req.params.id);
+    return res.json(await getTagByStudentId(id));
   });
 
   app.use(bodyParser.urlencoded({ extended: true }));
