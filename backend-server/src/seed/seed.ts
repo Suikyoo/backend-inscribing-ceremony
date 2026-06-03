@@ -11,7 +11,7 @@ interface Tag {
   metaData1: string;
   metaData2: string;
 }
-export async function seed() {
+export async function seed(): Promise<void>{
   const file = await readFile("src/seed/data.txt", "utf-8");
 
 
@@ -65,7 +65,8 @@ export async function seed() {
 
   await db.delete(studentsTable);
   console.log("students table cleared");
-  
+
 }
 
 await seed();
+await db.$client.end();

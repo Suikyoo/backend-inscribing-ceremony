@@ -15,3 +15,4 @@ export async function clear() {
 }
 
 await clear();
+await db.$client.end();

@@ -12,6 +12,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 
 const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
+const delay: number = 1000;
 
 export function configRoutes(app: Express) {
 
@@ -24,17 +25,17 @@ export function configRoutes(app: Express) {
   //getters
 
   app.get("/students", async (_, res) => {
-    await sleep(1000);
+    await sleep(delay);
     return res.json(await getAllStudents());
   });
   app.get("/students/:id", async (req, res) => {
     const id: number = Number(req.params.id);
-    await sleep(1000);
+    await sleep(delay);
     return res.json(await getStudentsById(id));
   });
 
   app.get("/tags/:id", async (req, res) => {
-    await sleep(1000);
+    await sleep(delay);
     const id: number = Number(req.params.id);
     return res.json(await getTagByStudentId(id));
   });
