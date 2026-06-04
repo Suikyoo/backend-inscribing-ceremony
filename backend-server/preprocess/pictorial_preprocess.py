@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, subprocess
 from pathlib import Path
 
 
@@ -18,7 +18,8 @@ for k in data.keys():
             for j in range(len(files)):
                 src = files[j]
                 dest = root / (data[k] + "_" + str(j) + ".jpeg")
-                shutil.copy(src, dest)
+                # shutil.copy(src, dest)
+                subprocess.run(["ffmpeg",  "-i",  src , "-filter:v", f"scale=400:600",  dest])
                 #print(f"copy from {src} to {dest}")
 
         else:
