@@ -12,7 +12,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 
 const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
-const delay: number = 1000;
+const delay: number = 0;
 
 export function configRoutes(app: Express) {
 
